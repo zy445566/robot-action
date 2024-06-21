@@ -1,7 +1,8 @@
-const fs = require("fs");
 import * as robot from "robotjs";
 import * as fsPromise from "fs/promises";
 import { ActionFlowsData } from "./types";
+import { uIOhook } from "uiohook-napi";
+import { EventTypeFuncMap } from "./transfer";
 
 async function readActionFlowsFile(
   actionFlowsFilePath: string
@@ -36,4 +37,22 @@ export async function runner(actionFlowsFilePath: string) {
       throw new Error("command not found");
     }
   }
+}
+
+export async function recorder(
+  actionFlowsFilePath: string
+): Promise<() => void> {
+  const data = {
+    action: [],
+  };
+  uIOhook.on("input", (e) => {
+    if (EventTypeFuncMap[e.type]) {
+      data.action.push(EventTypeFuncMap[e.type](e));
+    }
+  });
+  uIOhook.start();
+  return async () => {
+    uIOhook.stop();
+    fsPromise.writeFile(actionFlowsFilePath, JSON.stringify(data, null, 2));
+  };
 }

@@ -1,7 +1,7 @@
 {
   "name": "robot-action",
-  "version": "1.0.0",
-  "description": "Node.js Desktop Automation Flows Runner",
+  "version": "1.0.1",
+  "description": "Node.js Desktop Automation Flows Recorder & Runner",
   "main": "build/index.js",
   "bin": {
     "robot-action": "./build/index.js"
@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "npx tsc",
-    "test": "npm run build && node ./build/test.js"
+    "test": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "robot",
     "action",
     "desktop",
+    "recorder",
     "runner",
     "flows",
     "flow"
@@ -37,6 +38,7 @@
   "dependencies": {
     "commander": "^12.1.0",
     "node-gyp": "^10.1.0",
-    "robotjs": "^0.6.0"
+    "robotjs": "^0.6.0",
+    "uiohook-napi": "^1.5.4"
   }
 }

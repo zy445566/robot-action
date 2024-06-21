@@ -2,11 +2,23 @@
 
 Node.js Desktop Automation Flows Runner.
 
-Power by [robotjs](https://github.com/octalmage/robotjs)
+Power by [robotjs](https://github.com/octalmage/robotjs),[uiohook-napi](https://github.com/SnosMe/uiohook-napi).
+
+# install
+
+```sh
+npm i robot-action -g
+```
 
 # exmaple
 
-action-flows.json
+Record action flows (default output:./action-flows.json)
+
+```sh
+robot-action record
+```
+
+action-flows.json like:
 
 ```json
 {
@@ -27,8 +39,8 @@ action-flows.json
 }
 ```
 
-Run action flows (default:./action-flows.json)
+Run action flows (default iutput:./action-flows.json)
 
 ```sh
-npx robot-action ./action-flows.json
+robot-action run
 ```
