@@ -1,0 +1,42 @@
+{
+  "name": "robot-action",
+  "version": "1.0.0",
+  "description": "Node.js Desktop Automation Flows Runner",
+  "main": "build/index.js",
+  "bin": {
+    "robot-action": "./build/index.js"
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "npx tsc",
+    "test": "npm run build && node ./build/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zy445566/robot-action.git"
+  },
+  "keywords": [
+    "automation",
+    "robot",
+    "action",
+    "desktop",
+    "runner",
+    "flows",
+    "flow"
+  ],
+  "author": "zy445566",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zy445566/robot-action/issues"
+  },
+  "homepage": "https://github.com/zy445566/robot-action#readme",
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "node-gyp": "^10.1.0",
+    "robotjs": "^0.6.0"
+  }
+}
