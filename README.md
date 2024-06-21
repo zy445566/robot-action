@@ -10,6 +10,8 @@ Power by [robotjs](https://github.com/octalmage/robotjs),[uiohook-napi](https://
 npm i robot-action -g
 ```
 
+about gyp install,you may see [this](https://github.com/nodejs/node-gyp?tab=readme-ov-file#installation)
+
 # exmaple
 
 Record action flows (default output:./action-flows.json)
