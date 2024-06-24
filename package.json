@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "npx tsc",
-    "test": "npm run build"
+    "test": "node ./build/bin.js"
   },
   "repository": {
     "type": "git",
