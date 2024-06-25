@@ -64,6 +64,9 @@ program
         callback();
       }
     }, 1000);
+    process.stdout.write(
+      `You can enter '${options.exitKey}' Or 'Ctrl+C' to stop record\r\n`
+    );
   });
 
 program
