@@ -1,7 +1,7 @@
 import * as robot from "robotjs";
 import * as fsPromise from "fs/promises";
 import { ActionFlowsData } from "./types";
-import { uIOhook } from "uiohook-napi";
+import { uIOhook, EventType } from "uiohook-napi";
 import { EventTypeFuncMap } from "./transfer";
 
 async function readActionFlowsFile(
@@ -11,6 +11,8 @@ async function readActionFlowsFile(
   const actionData = JSON.parse(fileData.toString());
   return actionData;
 }
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function runner(actionFlowsFilePath: string) {
   const actionData = await readActionFlowsFile(actionFlowsFilePath);
@@ -25,6 +27,12 @@ export async function runner(actionFlowsFilePath: string) {
   for (let i = 0; i < actionList.length; i++) {
     const action = actionList[i];
     let mainRuner = robot;
+    if (action.command === "sleep") {
+      if (typeof action.args[0] === "number") {
+        await sleep(action.args[0]);
+        continue;
+      }
+    }
     if (action.command.startsWith("plugin.")) {
       const pluginInfo = action.command.split(".");
       mainRuner = require(pluginInfo[1])[pluginInfo[2]];
@@ -45,8 +53,18 @@ export async function recorder(
   const data = {
     action: [],
   };
+  let tmpTime = Date.now();
   uIOhook.on("input", (e) => {
     if (EventTypeFuncMap[e.type]) {
+      const now = Date.now();
+      const time = now - tmpTime;
+      tmpTime = now;
+      if (time > 0) {
+        data.action.push({
+          command: "sleep",
+          args: [time],
+        });
+      }
       data.action.push(EventTypeFuncMap[e.type](e));
     }
   });

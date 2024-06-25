@@ -1,6 +1,6 @@
 interface Action {
   command: string;
-  args: string[];
+  args: Array<string | number>;
 }
 
 export interface ActionFlowsData {

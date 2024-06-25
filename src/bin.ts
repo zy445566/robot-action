@@ -39,6 +39,11 @@ program
     "record action flows file path",
     path.join(process.cwd(), "action-flows.json")
   )
+  .option(
+    "-e, --exitKey <exitKey>",
+    "set one key when need exit record,default:exit",
+    "exit"
+  )
   .action(async (options) => {
     let callback = () => {};
     if (path.isAbsolute(options.actionFlowsFilePath)) {
@@ -48,9 +53,17 @@ program
         path.join(process.cwd(), options.actionFlowsFilePath)
       );
     }
-    process.on("SIGINT", () => {
+    process.once("SIGINT", () => {
       callback();
     });
+    const timer = setInterval(() => {
+      const keyBuf = process.stdin.read(options.exitKey.length);
+      const key = keyBuf ? keyBuf.toString() : "";
+      if (key === options.exitKey) {
+        clearInterval(timer);
+        callback();
+      }
+    }, 1000);
   });
 
 program

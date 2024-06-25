@@ -1,6 +1,6 @@
 {
   "name": "robot-action",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node.js Desktop Automation Flows Recorder & Runner",
   "main": "build/index.js",
   "bin": {
